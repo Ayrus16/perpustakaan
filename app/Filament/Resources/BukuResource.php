@@ -42,16 +42,16 @@ class BukuResource extends Resource
 
                 Section::make()->schema([
                 TextInput::make('judul_buku')
-                    ->reactive()
-                    ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', \Str::slug($state)))
-                    ->required(),TextInput::make('slug')->required(),
+                    ->reactive()->required()->unique(column: 'judul_buku')->required()->unique(column: 'judul_buku')
+                    ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', \Str::slug($state))),
+                    TextInput::make('slug')->required(),
 
                 SpatieMediaLibraryFileUpload::make('sampul')->image()->required(),
 
                 Select::make('kategori_id')
                     ->relationship(name: 'kategori', titleAttribute: 'nama_kategori')->searchable(['nama_kategori'])
                     ->required(),
-                RichEditor::make('sinopsis')->required()->maxLength(255),
+                RichEditor::make('sinopsis')->required()->maxLength(900),
                 Select::make('penerbit_id')
                     ->relationship(name: 'penerbit', titleAttribute: 'nama_penerbit')
                     ->searchable(['nama_penerbit'])

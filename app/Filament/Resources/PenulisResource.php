@@ -38,7 +38,7 @@ class PenulisResource extends Resource
                     ->reactive()
                     ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', \Str::slug($state)))
                     ->required(),TextInput::make('slug')->required(),
-                    RichEditor::make('cerita_singkat')->maxLength(255)
+                    RichEditor::make('cerita_singkat')->maxLength(600)
             ])
             ]);
     }
