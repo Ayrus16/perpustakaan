@@ -7,6 +7,7 @@ use App\Filament\Resources\UserResource\RelationManagers;
 use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Components\Section;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Forms\Set;
@@ -24,6 +25,8 @@ use Illuminate\Support\Facades\Hash;
 class UserResource extends Resource
 {
     protected static ?string $model = User::class;
+
+    protected static ?string $navigationGroup = 'Setting';
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
@@ -55,7 +58,11 @@ class UserResource extends Resource
                         ->password()
                         ->required(fn (Page $livewire): bool => $livewire instanceof CreateRecord)
                         ->minLength(8)
-                        ->dehydrated(false)
+                        ->dehydrated(false),
+                    
+                    Select::make('roles')
+                        ->multiple()
+                        ->relationship('roles', 'name')->preload()
 
                 ])
             ]);
@@ -76,7 +83,8 @@ class UserResource extends Resource
                     }
                 ),
                 TextColumn::make('name')->limit(50)->sortable()->searchable(),
-                TextColumn::make('email')->limit(50)->sortable()->searchable()
+                TextColumn::make('email')->limit(50)->sortable()->searchable(),
+                TextColumn::make('roles.name')->limit(50)->sortable()->searchable()
             ])
             ->filters([
                 //

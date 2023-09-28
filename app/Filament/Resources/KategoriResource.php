@@ -35,11 +35,12 @@ class KategoriResource extends Resource
         return $form
             ->schema([
                 Section::make()->schema([
-                TextInput::make('nama_kategori')
-                ->reactive()
-                ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', \Str::slug($state)))
-                ->required(),TextInput::make('slug')->required()
-            ])
+                    TextInput::make('nama_kategori')
+                    ->reactive()
+                    ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', \Str::slug($state)))
+                    ->required(),
+                    TextInput::make('slug')->required()
+                ])
         ]);
     }
 

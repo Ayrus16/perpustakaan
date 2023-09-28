@@ -16,7 +16,8 @@ class Buku extends Model implements HasMedia
         'sinopsis', 
         'kategori_id',
         'penulis_id',
-        'penerbit_id'];
+        'penerbit_id',
+        'users_id'];
 
     public function kategori(){
         return $this->belongsTo(Kategori::class);

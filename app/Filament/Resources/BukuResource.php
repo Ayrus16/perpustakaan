@@ -8,6 +8,7 @@ use App\Filament\Resources\BukuResource\Widgets\StatOverview;
 use App\Models\Buku;
 use Filament\Forms;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
@@ -26,6 +27,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 use Filament\Tables\Filters\Filter;
+use Illuminate\Support\Facades\Auth;
 
 class BukuResource extends Resource
 {
@@ -42,9 +44,9 @@ class BukuResource extends Resource
 
                 Section::make()->schema([
                 TextInput::make('judul_buku')
-                    ->reactive()->required()->unique(column: 'judul_buku')->required()->unique(column: 'judul_buku')
+                    ->reactive()->required()->unique(column: 'judul_buku')
                     ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', \Str::slug($state))),
-                    TextInput::make('slug')->required(),
+                    TextInput::make('slug')->required()->disabled(),
 
                 SpatieMediaLibraryFileUpload::make('sampul')->image()->required(),
 
@@ -60,6 +62,9 @@ class BukuResource extends Resource
                     ->relationship(name: 'penulis', titleAttribute: 'nama_penulis')
                     ->searchable(['nama_penulis'])
                     ->required(),
+
+                Hidden::make('users_id')
+                    ->default(Auth::user()->id)
                 ])
             ]);
     }
