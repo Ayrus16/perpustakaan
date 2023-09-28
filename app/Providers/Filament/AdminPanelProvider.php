@@ -11,6 +11,8 @@ use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
 use Filament\Widgets;
 use App\Filament\Resources\BukuResource\Widgets\StatOverview;
+use App\Models\Buku;
+use Filament\Navigation\NavigationItem;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
@@ -24,6 +26,13 @@ class AdminPanelProvider extends PanelProvider
     public function panel(Panel $panel): Panel
     {
         return $panel
+            ->navigationItems([
+                NavigationItem::make('Buku')
+                    ->url(fn (): string => '/admin/bukus')
+                    ->icon('heroicon-o-presentation-chart-line')
+                    ->isActiveWhen(fn () => request()->routeIs('filament.admin.pages.buku')),
+
+            ])
             ->default()
             ->id('admin')
             ->sidebarFullyCollapsibleOnDesktop()

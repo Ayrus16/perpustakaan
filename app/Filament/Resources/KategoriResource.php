@@ -6,6 +6,7 @@ use App\Filament\Resources\KategoriResource\Pages;
 use App\Filament\Resources\KategoriResource\RelationManagers;
 use App\Filament\Resources\KategoriResource\RelationManagers\PostsRelationManager;
 use App\Models\Kategori;
+use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Components\Card;
 use Filament\Forms\Components\Section;
@@ -20,6 +21,7 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Tables\Contracts\HasTable;
+use Illuminate\Support\Facades\Auth;
 
 class KategoriResource extends Resource
 {
@@ -28,6 +30,18 @@ class KategoriResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-tag';
 
     protected static ?string $navigationGroup = 'Management';
+
+    
+    public static function shouldRegisterNavigation(): bool
+    {
+         
+        if(Auth::user()->hasRole('admin')){
+            return true;
+        } else {
+            return false;
+        }
+        
+    }
 
 
     public static function form(Form $form): Form

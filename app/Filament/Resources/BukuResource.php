@@ -35,6 +35,7 @@ class BukuResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-book-open';
 
+
     // protected static ?string $navigationGroup = 'Management';
 
     public static function form(Form $form): Form
@@ -46,7 +47,7 @@ class BukuResource extends Resource
                 TextInput::make('judul_buku')
                     ->reactive()->required()->unique(column: 'judul_buku')
                     ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', \Str::slug($state))),
-                    TextInput::make('slug')->required()->disabled(),
+                    TextInput::make('slug')->required(),
 
                 SpatieMediaLibraryFileUpload::make('sampul')->image()->required(),
 

@@ -15,12 +15,23 @@ use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Permission;
 
 class PermissionResource extends Resource
 {
     protected static ?string $model = Permission::class;
 
+    public static function shouldRegisterNavigation(): bool
+    {
+         
+        if(Auth::user()->hasRole('admin')){
+            return true;
+        } else {
+            return false;
+        }
+        
+    }
     protected static ?string $navigationGroup = 'Setting';
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 

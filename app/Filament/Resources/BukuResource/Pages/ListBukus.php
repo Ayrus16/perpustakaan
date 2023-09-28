@@ -5,10 +5,11 @@ namespace App\Filament\Resources\BukuResource\Pages;
 use App\Filament\Resources\BukuResource;
 use App\Models\Buku;
 use Filament\Actions;
-use Filament\Forms\Components\Builder;
+// use Filament\Forms\Components\Builder;
 use Filament\Resources\Pages\ListRecords;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\Builder;
 
 class ListBukus extends ListRecords
 {
@@ -28,8 +29,14 @@ class ListBukus extends ListRecords
         ];
     }
 
-    protected function getTableQuery(): EloquentBuilder
+    protected function getTableQuery(): Builder 
     {
+
+        if(Auth::user()->hasRole('admin')){
+            return Buku::query()->get()->all();
+        } else{
             return Buku::where('users_id', Auth::user()->id);
+        }
+            
     }
 }

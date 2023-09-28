@@ -14,21 +14,25 @@ class StatOverview extends Widget
 {
     // protected static string $view = 'filament.resources.buku-resource.widgets.stat-overview';
 
-    protected function getStats(User $user): array
+    protected function getStats(): array
     {
-        if($user->hasRole('admin')){
+        // if($user->hasRole('admin')){
+        //         return [
+        //         Stat::make('Jumlah Buku', Buku::all()->count()),
+        //         Stat::make('Jumlah Kategori', Kategori::all()->count()),
+        //         Stat::make('Jumlah Penulis', penulis::all()->count()),
+        //     ];
+
+        // } else if ($user->hasRole('user')) {
+        //     return [
+        //         Stat::make('Jumlah Buku', Buku::where('users_id', Auth::user()->id)->count()),
+        //     ];
+        // }
                 return [
-                Stat::make('Jumlah Buku', Buku::all()->count()),
-                Stat::make('Jumlah Kategori', Kategori::all()->count()),
-                Stat::make('Jumlah Penulis', penulis::all()->count()),
-            ];
-
-        } else if ($user->hasRole('user')) {
-            return [
-                Stat::make('Jumlah Buku', Buku::where('users_id', Auth::user()->id)->count()),
-            ];
-        }
-
+                            Stat::make('Jumlah Buku', Buku::all()->count()),
+                            Stat::make('Jumlah Kategori', Kategori::all()->count()),
+                            Stat::make('Jumlah Penulis', penulis::all()->count()),
+                        ];
         
     }
 
