@@ -35,6 +35,12 @@ class BukuResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-book-open';
 
+    public static function shouldRegisterNavigation(): bool
+    {
+         
+        return true;
+        
+    }
 
     // protected static ?string $navigationGroup = 'Management';
 
@@ -43,30 +49,65 @@ class BukuResource extends Resource
         return $form
             ->schema([
 
-                Section::make()->schema([
-                TextInput::make('judul_buku')
+                Section::make()
+                ->columns([
+                    'sm' => 1,
+                    'xl' => 2,
+                    '2xl' => 2,
+                ])
+                ->schema([
+                    TextInput::make('judul_buku')
                     ->reactive()->required()->unique(column: 'judul_buku')
                     ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', \Str::slug($state))),
-                    TextInput::make('slug')->required(),
-
-                SpatieMediaLibraryFileUpload::make('sampul')->image()->required(),
-
-                Select::make('kategori_id')
-                    ->relationship(name: 'kategori', titleAttribute: 'nama_kategori')->searchable(['nama_kategori'])
-                    ->required(),
-                RichEditor::make('sinopsis')->required()->maxLength(900),
-                Select::make('penerbit_id')
-                    ->relationship(name: 'penerbit', titleAttribute: 'nama_penerbit')
-                    ->searchable(['nama_penerbit'])
-                    ->required(),
-                Select::make('penulis_id')
+                    Hidden::make('slug')->required(),
+                    Select::make('penulis_id')
                     ->relationship(name: 'penulis', titleAttribute: 'nama_penulis')
                     ->searchable(['nama_penulis'])
                     ->required(),
-
-                Hidden::make('users_id')
+                    Select::make('kategori_id')
+                    ->relationship(name: 'kategori', titleAttribute: 'nama_kategori')->searchable(['nama_kategori'])
+                    ->required(),
+                    Select::make('penerbit_id')
+                    ->relationship(name: 'penerbit', titleAttribute: 'nama_penerbit')
+                    ->searchable(['nama_penerbit'])
+                    ->required(),
+                    RichEditor::make('sinopsis')->required()->maxLength(900)->columnSpanFull(),
+                    Hidden::make('users_id')
                     ->default(Auth::user()->id)
+
+                ]),
+
+                Section::make()
+                ->columns([
+                    'sm' => 1,
+                    'xl' => 1,
+                    '2xl' => 1,
                 ])
+                ->schema([
+                    SpatieMediaLibraryFileUpload::make('sampul')->image()->required(),
+                ])
+
+
+                
+
+                
+
+                // Select::make('kategori_id')
+                //     ->relationship(name: 'kategori', titleAttribute: 'nama_kategori')->searchable(['nama_kategori'])
+                //     ->required(),
+                // RichEditor::make('sinopsis')->required()->maxLength(900),
+                // Select::make('penerbit_id')
+                //     ->relationship(name: 'penerbit', titleAttribute: 'nama_penerbit')
+                //     ->searchable(['nama_penerbit'])
+                //     ->required(),
+                // Select::make('penulis_id')
+                //     ->relationship(name: 'penulis', titleAttribute: 'nama_penulis')
+                //     ->searchable(['nama_penulis'])
+                //     ->required(),
+
+                // Hidden::make('users_id')
+                //     ->default(Auth::user()->id)
+                
             ]);
     }
 

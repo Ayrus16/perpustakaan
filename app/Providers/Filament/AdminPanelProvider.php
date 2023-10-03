@@ -26,13 +26,13 @@ class AdminPanelProvider extends PanelProvider
     public function panel(Panel $panel): Panel
     {
         return $panel
-            ->navigationItems([
-                NavigationItem::make('Buku')
-                    ->url(fn (): string => '/admin/bukus')
-                    ->icon('heroicon-o-presentation-chart-line')
-                    ->isActiveWhen(fn () => request()->routeIs('filament.admin.pages.buku')),
+            // ->navigationItems([
+            //     NavigationItem::make('Buku')
+            //         ->url(fn (): string => '/admin/bukus')
+            //         ->icon('heroicon-o-presentation-chart-line')
+            //         ->isActiveWhen(fn () => request()->routeIs('filament.admin.pages.buku')),
 
-            ])
+            // ])
             ->default()
             ->id('admin')
             ->sidebarFullyCollapsibleOnDesktop()

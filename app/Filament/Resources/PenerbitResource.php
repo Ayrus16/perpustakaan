@@ -7,6 +7,7 @@ use App\Filament\Resources\PenerbitResource\Pages;
 use App\Filament\Resources\PenerbitResource\RelationManagers;
 use App\Models\Penerbit;
 use Filament\Forms;
+use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
@@ -31,15 +32,32 @@ class PenerbitResource extends Resource
     {
         return $form
             ->schema([
-                Section::make()->schema([
+                // Section::make()->schema([
+                //     TextInput::make('nama_penerbit')
+                //     ->reactive()
+                //     ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', \Str::slug($state)))
+                //     ->required(),
+                //     TextInput::make('slug')->required(),
+                //     TextInput::make('kota'),
+                //     TextInput::make('alamat_penerbit')
+                //  ])
+                 Section::make()
+                 ->columns([
+                     'sm' => 1,
+                     'xl' => 2,
+                     '2xl' => 2,
+                 ])
+                 ->schema([
                     TextInput::make('nama_penerbit')
                     ->reactive()
                     ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', \Str::slug($state)))
-                    ->required(),
-                    TextInput::make('slug')->required(),
+                    ->required()->columnSpanFull(),
+                    Hidden::make('slug')->required(),
                     TextInput::make('kota'),
                     TextInput::make('alamat_penerbit')
-            ])
+                 ])
+
+
         ]);
     }
 

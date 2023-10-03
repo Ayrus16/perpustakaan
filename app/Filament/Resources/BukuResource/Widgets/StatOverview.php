@@ -28,11 +28,18 @@ class StatOverview extends Widget
         //         Stat::make('Jumlah Buku', Buku::where('users_id', Auth::user()->id)->count()),
         //     ];
         // }
-                return [
-                            Stat::make('Jumlah Buku', Buku::all()->count()),
-                            Stat::make('Jumlah Kategori', Kategori::all()->count()),
-                            Stat::make('Jumlah Penulis', penulis::all()->count()),
-                        ];
+                if(Auth::user()->hasRole('admin')){
+                    return [
+                        Stat::make('Jumlah Buku', Buku::all()->count()),
+                        Stat::make('Jumlah Kategori', Kategori::all()->count()),
+                        Stat::make('Jumlah Penulis', penulis::all()->count()),
+                    ];
+                } else{
+                    return [
+                        Stat::make('Jumlah Buku', Buku::where('users_id', Auth::user()->id)->count())
+                    ];
+                }
+                
         
     }
 

@@ -7,6 +7,7 @@ use App\Filament\Resources\PenulisResource\Pages;
 use App\Filament\Resources\PenulisResource\RelationManagers;
 use App\Models\Penulis;
 use Filament\Forms;
+use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\TextInput;
@@ -37,7 +38,7 @@ class PenulisResource extends Resource
                     TextInput::make('nama_penulis')
                     ->reactive()
                     ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', \Str::slug($state)))
-                    ->required(),TextInput::make('slug')->required(),
+                    ->required(),Hidden::make('slug')->required(),
                     RichEditor::make('cerita_singkat')->maxLength(600)
             ])
             ]);

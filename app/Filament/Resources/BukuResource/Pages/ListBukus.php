@@ -33,7 +33,7 @@ class ListBukus extends ListRecords
     {
 
         if(Auth::user()->hasRole('admin')){
-            return Buku::query()->get()->all();
+            return Buku::where('users_id', '!=' , '0');
         } else{
             return Buku::where('users_id', Auth::user()->id);
         }

@@ -9,6 +9,7 @@ use App\Models\Kategori;
 use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Components\Card;
+use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
@@ -32,16 +33,16 @@ class KategoriResource extends Resource
     protected static ?string $navigationGroup = 'Management';
 
     
-    public static function shouldRegisterNavigation(): bool
-    {
+    // public static function shouldRegisterNavigation(): bool
+    // {
          
-        if(Auth::user()->hasRole('admin')){
-            return true;
-        } else {
-            return false;
-        }
+    //     if(Auth::user()->hasRole('admin')){
+    //         return true;
+    //     } else {
+    //         return false;
+    //     }
         
-    }
+    // }
 
 
     public static function form(Form $form): Form
@@ -53,7 +54,7 @@ class KategoriResource extends Resource
                     ->reactive()
                     ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', \Str::slug($state)))
                     ->required(),
-                    TextInput::make('slug')->required()
+                    Hidden::make('slug')->required()
                 ])
         ]);
     }
