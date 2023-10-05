@@ -19,8 +19,12 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Tables\Contracts\HasTable;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Http;
+use Sushi\Sushi;
 class PenerbitResource extends Resource
 {
+    use Sushi;
     protected static ?string $model = Penerbit::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
@@ -30,6 +34,10 @@ class PenerbitResource extends Resource
 
     public static function form(Form $form): Form
     {
+        // $products = Http::get('https://www.emsifa.com/api-wilayah-indonesia/api/provinces.json')->json();
+        // dd($products);
+        
+
         return $form
             ->schema([
                 // Section::make()->schema([

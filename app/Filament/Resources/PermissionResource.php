@@ -25,11 +25,12 @@ class PermissionResource extends Resource
     public static function shouldRegisterNavigation(): bool
     {
          
-        if(Auth::user()->hasRole('admin')){
-            return true;
-        } else {
-            return false;
-        }
+        // if(Auth::user()->hasRole('admin')){
+        //     return true;
+        // } else {
+        //     return false;
+        // }
+        return false;
         
     }
     protected static ?string $navigationGroup = 'Setting';
