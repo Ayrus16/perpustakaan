@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('penulis', function (Blueprint $table) {
             $table->id();
             $table->string('nama_penulis');
-            $table->string('cerita_singkat');
+            $table->string('cerita_singkat', 1000);
             $table->string('slug')->unique();
             $table->timestamps();
         });

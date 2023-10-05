@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('judul_buku');
             $table->string('slug')->unique();
-            $table->string('sinopsis');
+            $table->string('sinopsis',1000);
             $table->foreignId('kategori_id');
             $table->foreignId('penulis_id');
             $table->foreignId('penerbit_id');
